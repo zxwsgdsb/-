@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 引入外部js文件 -->
+<script src="./js/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+欢迎！
+<button onclick="linkto('0001')">查询苹果信息</button>
+<button onclick="linkto('0002')">查询香蕉信息</button>
+<button onclick="linkto('0003')">查询梨信息</button>
+<button onclick="getUser('0001')">apple</button>
+<button onclick="getUser('0002')">banana</button>
+<button onclick="getUser('0003')">pear</button><br />
+ID：<input class="com_id" type="text" placeholder= "请输入ID" /><br />
+水果名称：<input class="com_name" type="text" placeholder= "请输入水果名称" /><br />
+数量：<input class="com_number" type="text" placeholder= "请输入数量" /><br />
+供应商：<input class="com_supplier" type="text" placeholder= "请输入供应商" /><br />
+电话号：<input class="com_tep" type="text" placeholder= "请输入电话号" /><br />
+<button onclick="comRegister()">注册</button>
+<table id="ab" border="1" cellpadding="5" cellspacing="0" ></table>
+<script>
+$(function(){
+	// jQuery自运行函数，页面加载就调用的函数
+	$.ajax({
+			//请求类型
+			type:"post",
+			//请求路径
+			url:"/commodity/getcommodity",
+			//请求参数
+			//data:{
+			//	id:id,
+			//},
+			//返回数据类型
+			dataType: "json",
+			//请求成功后调用函数
+			success: function(data){
+				console.log("成功后返回数据",data);
+				var commodityList = data.commodityList
+				$("#ab").html("");
+				var txt = "";
+				for(var i =0;i<commodityList.length; i++){
+					txt += `<tr>
+						<td>${commodityList[i].id}</td>
+						<td>${commodityList[i].name}</td>
+						<td>${commodityList[i].number}</td>
+						<td>${commodityList[i].supplier}</td>
+						<td>${commodityList[i].tep}</td>
+						<td><button onclick="comDelete('${commodityList[i].id}')">删除</button></td>
+					</tr>`
+				}
+				var tbody =$("<tbody></tbody>").html(txt);
+				$("#ab").html(tbody);
+			},
+			//请求失败后调用函数
+			error: function(data){
+				console.log("失败后返回数据",data);
+			}
+		})
+})
+	function comDelete(id){
+		console.log(id);
+		$.ajax({
+			//请求类型
+			type:"post",
+			//请求路径
+			url:"/commodity/comdelete",
+			//请求参数
+			data:{
+				id:id,
+			},
+			//返回数据类型
+			dataType: "json",
+			//请求成功后调用函数
+			success: function(data){
+				console.log("成功后返回数据",data);
+				$(function(){
+					// jQuery自运行函数，页面加载就调用的函数
+					var commodityList = data.commodityList
+					var txt = "";
+					for(var i =0;i<commodityList.length; i++){
+						txt += `<tr>
+							<td>${commodityList[i].id}</td>
+							<td>${commodityList[i].name}</td>
+							<td>${commodityList[i].number}</td>
+							<td>${commodityList[i].supplier}</td>
+							<td>${commodityList[i].tep}</td>
+							<td><button onclick="comDelete()"></button></td>
+						</tr>`
+					}
+					var tbody =$("<tbody></tbody>").html(txt);
+					$("#ab").html(tbody);
+				})
+			},
+			//请求失败后调用函数
+			error: function(data){
+				console.log("失败后返回数据",data);
+			}
+		})
+	}
+
+	function comRegister(){
+			var id = $(".com_id").val();
+			var name = $(".com_name").val();
+			var number = $(".com_number").val();
+			var supplier = $(".com_supplier").val();
+			var tep = $(".com_tep").val();
+		$.ajax({
+			//请求类型
+			type:"post",
+			//请求路径
+			url:"/commodity/comregister",
+			//请求参数
+			data:{
+				id:id,
+				name: name,
+				number: number,
+				supplier: supplier,
+				tep: tep,
+			},
+			//返回数据类型
+			dataType: "json",
+			//请求成功后调用函数
+			success: function(data){
+				console.log("成功后返回数据",data);
+				
+			},
+			//请求失败后调用函数
+			error: function(data){
+				console.log("失败后返回数据",data);
+			}
+		})
+	}
+
+	function linkto(id){
+		//console.log()相当于System.out.println();
+		console.log("点击了按钮");
+		//写处理过程
+		location.href="/commodity/commoditylist?id="+id;
+	}
+	function linkto1(){
+		location.href="/user/userlist";
+	}
+	function getUser(id){
+		$.ajax({
+			//请求类型
+			type:"post",
+			//请求路径
+			url:"/commodity/getcommodity",
+			//请求参数
+			data:{
+				id:id,
+			},
+			//返回数据类型
+			dataType: "json",
+			//请求成功后调用函数
+			success: function(data){
+				console.log("成功后返回数据",data);
+				var commodityList = data.commodityList
+				$("#ab").html("");
+				var txt = "";
+				for(var i =0;i<commodityList.length; i++){
+					txt += `<tr>
+						<td>${commodityList[i].id}</td>
+						<td>${commodityList[i].name}</td>
+						<td>${commodityList[i].number}</td>
+						<td>${commodityList[i].supplier}</td>
+						<td>${commodityList[i].tep}</td>
+						<td><button onclick="comDelete('${commodityList[i].id}')">删除</button></td>
+					</tr>`
+				}
+				var tbody =$("<tbody></tbody>").html(txt);
+				$("#ab").html(tbody);
+			},
+			//请求失败后调用函数
+			error: function(data){
+				console.log("失败后返回数据",data);
+			}
+		})
+	}
+</script>
+</body>
+</html>
