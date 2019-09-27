@@ -1,0 +1,69 @@
+li-90
+ainiyly.8587
+
+shift ctrl o  添加包
+组长
+git bash
+   git init
+git remote add origin paste
+//添加一个分支 名origin  地址
+
+分支方便管理系统版本
+
+git status//查看现在状态
+每次提交都要
+
+git add --A  //把当前全部代码放入暂存区
+加入暂存区方便恢复代码
+git commit -am “ 增加***功能 ”
+
+
+git push -u origin master  //项目放到仓库 
+     
+
+
+
+
+
+
+提交项目
+
+git add -a
+
+git status
+git push 
+//git pull
+git push
+
+
+启动工作区（另请参阅：git帮助教程）
+   clone      将存储库克隆到新目录
+   init         创建一个空的Git存储库或重新初始化现有的存储库
+
+处理当前更改（另请参见：每天都有git帮助）
+   add        将文件内容添加到索引
+   mv         移动或重命名文件，目录或符号链接
+   reset      将当前HEAD重置为指定状态
+   rm         从工作树和索引中删除文件
+
+检查历史记录和状态（另请参见：git help修订）
+   bisect     使用二进制搜索找到引入错误的提交
+   grep       打印与图案匹配的线
+   log        显示提交日志
+   show      显示各种类型的对象
+   status    显示工作树状态
+
+成长，标记和调整您的共同历史
+   branch     列出，创建或删除分支
+   checkout   切换分支或还原工作树文件
+   commit     记录对存储库的更改
+   diff       显示提交，提交和工作树等之间的更改
+   merge     将两个或多个开发历史联系在一起
+   rebase    在另一个基本提示上重新应用提交
+   tag        创建，列出，删除或验证使用GPG签名的标签对象
+
+协作（另请参阅：git help工作流程）
+   fetch      从另一个存储库下载对象和引用
+   pull      从另一个存储库或本地分支获取并与之集成
+   push       更新远程引用以及关联的对象
+
